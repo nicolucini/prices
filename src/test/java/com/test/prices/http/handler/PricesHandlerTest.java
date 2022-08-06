@@ -62,7 +62,6 @@ class PricesHandlerTest {
 		Assertions.assertThrows(InvalidDateException.class,
 				this::whenGetPrice);
 
-		shouldResponseBadRequest();
 	}
 
 	@Test
@@ -73,7 +72,6 @@ class PricesHandlerTest {
 		Assertions.assertThrows(InvalidBrandException.class,
 				this::whenGetPrice);
 
-		shouldResponseBadRequest();
 	}
 
 	@Test
@@ -84,7 +82,6 @@ class PricesHandlerTest {
 		Assertions.assertThrows(InvalidProductException.class,
 				this::whenGetPrice);
 
-		shouldResponseBadRequest();
 	}
 
 
