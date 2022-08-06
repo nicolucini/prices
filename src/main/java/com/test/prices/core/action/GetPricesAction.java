@@ -2,11 +2,9 @@ package com.test.prices.core.action;
 
 import com.test.prices.core.domain.Price;
 import com.test.prices.core.domain.GetPriceData;
-import com.test.prices.core.domain.PricesRepository;
 import com.test.prices.core.domain.exception.PriceNotFoundException;
 import com.test.prices.core.infrastructure.JPAPricesRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 @Service
