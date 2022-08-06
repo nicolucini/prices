@@ -27,7 +27,7 @@ class PricesHandlerTest {
 	public static final long PRODUCT_ID = 2L;
 	public static final String DATE_STRING = "2022-08-05-00.00.00";
 	public static final int PRICE_LIST = 3;
-	private PricesHandler pricesHandler;
+	private GetPricesHandler pricesHandler;
 
 	@Mock
 	private GetPriceAction pricesAction;
@@ -44,7 +44,7 @@ class PricesHandlerTest {
 	@BeforeEach
 	private void setUp() {
 		pricesAction = mock(GetPriceAction.class);
-		pricesHandler = new PricesHandler(pricesAction);
+		pricesHandler = new GetPricesHandler(pricesAction);
 	}
 
 	@Test

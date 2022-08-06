@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.*;
 import java.text.ParseException;
 
 @RestController
-public class PricesHandler {
+public class GetPricesHandler {
 	@Autowired
 	private final GetPriceAction getPricesAction;
 
-	public PricesHandler(GetPriceAction getPricesAction) {
+	public GetPricesHandler(GetPriceAction getPricesAction) {
 		this.getPricesAction = getPricesAction;
 	}
 

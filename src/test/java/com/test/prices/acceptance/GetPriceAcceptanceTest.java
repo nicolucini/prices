@@ -2,7 +2,7 @@ package com.test.prices.acceptance;
 
 import com.test.prices.core.action.GetPriceAction;
 import com.test.prices.core.domain.PricesRepository;
-import com.test.prices.http.handler.PricesHandler;
+import com.test.prices.http.handler.GetPricesHandler;
 import com.test.prices.http.response.PriceResponse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,11 +24,11 @@ public class GetPriceAcceptanceTest {
     @Autowired
     GetPriceAction action;
     @Autowired
-    PricesHandler handler;
+    GetPricesHandler handler;
 
     @BeforeEach
     public void setUp() {
-        handler = new PricesHandler(action);
+        handler = new GetPricesHandler(action);
     }
 
     /**
