@@ -12,14 +12,14 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.Mockito;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
 
-import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
 
-@SpringBootTest
+
 class PricesHandlerTest {
 	private PricesHandler pricesHandler;
 	@Mock private PricesAction pricesAction;
@@ -35,14 +35,12 @@ class PricesHandlerTest {
 
 	@BeforeEach
 	private void setUp() {
+		pricesAction = mock(PricesAction.class);
 		pricesHandler = new PricesHandler(pricesAction);
 	}
 
-	/**
-	 *
-	 */
 	@Test
-	void givenABrandIdAndProductIdAndDateWhenGetPriceShouldBeReturnAValidResponse() throws Throwable {
+	void givenABrandIdAndProductIdAndDateWhenGetPriceShouldReturnAValidResponse() throws Throwable {
 		givenAValidData();
 		givenAExpectedPrice();
 
@@ -92,7 +90,7 @@ class PricesHandlerTest {
 		price = BigDecimal.TEN;
 		priceList = 3;
 		Price expectedPrice = new Price(brandId, productId, priceList, price);
-		given(pricesAction.getPrice(actionData)).willReturn(expectedPrice);
+		Mockito.when(pricesAction.getPrice(actionData)).thenReturn(expectedPrice);
 	}
 
 	private void whenGetPrice() throws Throwable {
