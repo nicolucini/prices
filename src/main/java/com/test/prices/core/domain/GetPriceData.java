@@ -4,21 +4,21 @@ import java.util.Date;
 import java.util.Objects;
 
 public class GetPriceData {
-    private int brandId;
-    private int productId;
+    private Long brandId;
+    private Long productId;
     private Date date;
 
-    public GetPriceData(int brandId, int productId, Date date) {
+    public GetPriceData(Long brandId, Long productId, Date date) {
         this.brandId = brandId;
         this.productId = productId;
         this.date = date;
     }
 
-    public int getBrandId() {
+    public Long getBrandId() {
         return brandId;
     }
 
-    public int getProductId() {
+    public Long getProductId() {
         return productId;
     }
 
@@ -31,7 +31,7 @@ public class GetPriceData {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         GetPriceData that = (GetPriceData) o;
-        return brandId == that.brandId && productId == that.productId && Objects.equals(date, that.date);
+        return Objects.equals(brandId, that.brandId) && Objects.equals(productId, that.productId) && Objects.equals(date, that.date);
     }
 
     @Override

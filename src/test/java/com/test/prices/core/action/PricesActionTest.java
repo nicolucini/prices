@@ -1,7 +1,7 @@
 package com.test.prices.core.action;
 
 import com.test.prices.core.domain.GetPriceData;
-import com.test.prices.core.domain.Price;
+import com.test.prices.core.domain.GetPriceResponseData;
 import com.test.prices.core.domain.PricesRepository;
 import com.test.prices.core.domain.exception.PriceNotFoundException;
 import com.test.prices.core.infrastructure.JPAPricesRepositoryImpl;
@@ -22,18 +22,24 @@ import java.util.List;
 import static org.mockito.Mockito.mock;
 
 class PricesActionTest {
-    private GetPricesAction pricesAction;
+    public static final long BRAND_ID = 1L;
+    public static final long PRODUCT_ID = 2L;
+    public static final int PRIORITY = 1;
+    public static final long PRICE_LIST_1 = 1L;
+    public static final long PRICE_LIST_2 = 2L;
+    public static final String CURRENCY = "EUR";
+    private GetPriceAction pricesAction;
     @Mock
     private PricesRepository pricesRepository;
 
     private GetPriceData priceData;
-    private Price actualPrice;
+    private GetPriceResponseData actualPrice;
     private List<PriceItem> expectedPrices;
 
     @BeforeEach
     void setUp() {
         pricesRepository = mock(JPAPricesRepositoryImpl.class);
-        pricesAction = new GetPricesAction(pricesRepository);
+        pricesAction = new GetPriceAction(pricesRepository);
     }
 
     @Test
@@ -65,19 +71,19 @@ class PricesActionTest {
     }
 
     private void givenAValidPriceData() {
-        priceData = new GetPriceData(1,2, Date.valueOf(LocalDate.of(2022,8,5)));
+        priceData = new GetPriceData(BRAND_ID, PRODUCT_ID, Date.valueOf(LocalDate.of(2022,8,5)));
     }
 
     private void givenAPriceRepository() {
         expectedPrices = new ArrayList<>();
-        expectedPrices.add(new PriceItem(1, Calendar.getInstance().getTime(), Calendar.getInstance().getTime(), 1, 1, 1, BigDecimal.TEN, "EUR"));
+        expectedPrices.add(new PriceItem(BRAND_ID, Calendar.getInstance().getTime(), Calendar.getInstance().getTime(), PRICE_LIST_1, PRODUCT_ID, PRIORITY, BigDecimal.TEN, CURRENCY));
         Mockito.when(pricesRepository.findByDate(priceData.getBrandId(), priceData.getProductId(), priceData.getDate())).thenReturn(expectedPrices);
     }
 
     private void givenAPriceRepositoryWith2Results() {
         expectedPrices = new ArrayList<>();
-        expectedPrices.add(new PriceItem(1, Calendar.getInstance().getTime(), Calendar.getInstance().getTime(), 2, 1, 1, BigDecimal.ONE, "EUR"));
-        expectedPrices.add(new PriceItem(1, Calendar.getInstance().getTime(), Calendar.getInstance().getTime(), 1, 1, 1, BigDecimal.TEN, "EUR"));
+        expectedPrices.add(new PriceItem(BRAND_ID, Calendar.getInstance().getTime(), Calendar.getInstance().getTime(), PRICE_LIST_2, PRODUCT_ID, PRIORITY, BigDecimal.ONE, CURRENCY));
+        expectedPrices.add(new PriceItem(BRAND_ID, Calendar.getInstance().getTime(), Calendar.getInstance().getTime(), PRICE_LIST_1, PRODUCT_ID, PRIORITY, BigDecimal.TEN, CURRENCY));
         Mockito.when(pricesRepository.findByDate(priceData.getBrandId(), priceData.getProductId(), priceData.getDate())).thenReturn(expectedPrices);
     }
 

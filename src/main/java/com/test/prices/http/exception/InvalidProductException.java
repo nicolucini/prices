@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
         reason = "Requested productId is invalid"
 )
 public class InvalidProductException extends Exception {
-    public InvalidProductException(int productId) {
+    public InvalidProductException(Long productId) {
         super(String.format("Product %s is invalid. ProductId must be greather than 0", productId));
     }
 }

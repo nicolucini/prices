@@ -1,7 +1,7 @@
 package com.test.prices.http.handler;
 
-import com.test.prices.core.action.GetPricesAction;
-import com.test.prices.core.domain.Price;
+import com.test.prices.core.action.GetPriceAction;
+import com.test.prices.core.domain.GetPriceResponseData;
 import com.test.prices.core.domain.GetPriceData;
 import com.test.prices.core.domain.exception.PriceNotFoundException;
 import com.test.prices.http.exception.InvalidBrandException;
@@ -19,19 +19,19 @@ import java.text.ParseException;
 @RestController
 public class PricesHandler {
 	@Autowired
-	private GetPricesAction getPricesAction;
+	private final GetPriceAction getPricesAction;
 
-	public PricesHandler(GetPricesAction getPricesAction) {
+	public PricesHandler(GetPriceAction getPricesAction) {
 		this.getPricesAction = getPricesAction;
 	}
 
 	@GetMapping("/brands/{brandId}/products/{productId}/price")
-	public ResponseEntity<PriceResponse> price(@PathVariable(value = "brandId") int brandId,
-										@PathVariable(value = "productId") int productId,
+	public ResponseEntity<PriceResponse> price(@PathVariable(value = "brandId") Long brandId,
+										@PathVariable(value = "productId") Long productId,
 										@RequestParam(value = "date") String date) throws Throwable {
 
 		validateRequest(brandId, productId, date);
-		Price price = getPricesAction.getPrice(new GetPriceData(brandId, productId, DateFormatter.toDate(date)));
+		GetPriceResponseData price = getPricesAction.getPrice(new GetPriceData(brandId, productId, DateFormatter.toDate(date)));
 		PriceResponse priceResponse = new PriceResponse(price.getBrandId(),price.getProductId(),price.getPriceList(), price.getPrice());
 		return ResponseEntity.status(HttpStatus.OK).body(priceResponse);
 
@@ -45,7 +45,7 @@ public class PricesHandler {
 				.body(exception.getMessage());
 	}
 
-	private void validateRequest(int brandId, int productId, String date) throws Exception {
+	private void validateRequest(Long brandId, Long productId, String date) throws Exception {
 		try {
 			DateFormatter.toDate(date);
 		} catch (ParseException e){

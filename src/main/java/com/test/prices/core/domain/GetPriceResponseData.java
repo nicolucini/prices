@@ -2,28 +2,28 @@ package com.test.prices.core.domain;
 
 import java.math.BigDecimal;
 
-public class Price {
-    private int brandId;
-    private int productId;
-    private long priceList;
+public class GetPriceResponseData {
+    private Long brandId;
+    private Long productId;
+    private Long priceList;
     private BigDecimal price;
 
-    public Price(int brandId, int productId, long priceList, BigDecimal price) {
+    public GetPriceResponseData(Long brandId, Long productId, long priceList, BigDecimal price) {
         this.brandId = brandId;
         this.productId = productId;
         this.priceList = priceList;
         this.price = price;
     }
 
-    public int getBrandId() {
+    public Long getBrandId() {
         return brandId;
     }
 
-    public int getProductId() {
+    public Long getProductId() {
         return productId;
     }
 
-    public long getPriceList() {
+    public Long getPriceList() {
         return priceList;
     }
 

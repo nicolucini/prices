@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
         reason = "Requested brandId is invalid"
 )
 public class InvalidBrandException extends RuntimeException {
-    public InvalidBrandException(int brandId) {
+    public InvalidBrandException(Long brandId) {
         super(String.format("Brand %s is invalid. BrandId must be greather than 0", brandId));
     }
 }

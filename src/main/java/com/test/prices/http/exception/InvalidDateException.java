@@ -4,8 +4,6 @@ import com.test.prices.utils.DateFormatter;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import java.util.zip.DataFormatException;
-
 @ResponseStatus(
         value = HttpStatus.BAD_REQUEST,
         reason = "Requested date is invalid"

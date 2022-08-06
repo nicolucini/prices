@@ -6,27 +6,27 @@ import java.math.BigDecimal;
 
 @JsonNaming()
 public class PriceResponse {
-    private int brandId;
-    private int productId;
-    private long priceList;
+    private Long brandId;
+    private Long productId;
+    private Long priceList;
     private BigDecimal price;
 
-    public PriceResponse(int brandId, int productId, long priceList, BigDecimal price) {
+    public PriceResponse(Long brandId, Long productId, long priceList, BigDecimal price) {
         this.brandId = brandId;
         this.productId = productId;
         this.priceList = priceList;
         this.price = price;
     }
 
-    public int getBrandId() {
+    public Long getBrandId() {
         return brandId;
     }
 
-    public int getProductId() {
+    public Long getProductId() {
         return productId;
     }
 
-    public long getPriceList() {
+    public Long getPriceList() {
         return priceList;
     }
 

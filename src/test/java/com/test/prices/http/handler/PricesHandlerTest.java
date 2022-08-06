@@ -1,7 +1,7 @@
 package com.test.prices.http.handler;
 
-import com.test.prices.core.action.GetPricesAction;
-import com.test.prices.core.domain.Price;
+import com.test.prices.core.action.GetPriceAction;
+import com.test.prices.core.domain.GetPriceResponseData;
 import com.test.prices.core.domain.GetPriceData;
 import com.test.prices.http.exception.InvalidBrandException;
 import com.test.prices.http.exception.InvalidDateException;
@@ -26,20 +26,20 @@ class PricesHandlerTest {
 	private PricesHandler pricesHandler;
 
 	@Mock
-	private GetPricesAction pricesAction;
+	private GetPriceAction pricesAction;
 
 	private ResponseEntity<PriceResponse> response;
-	private int brandId;
-	private int productId;
+	private Long brandId;
+	private Long productId;
 	private String dateString;
 	private BigDecimal price;
 	private int priceList;
 	public static final String INVALID_DATE = "05-08-2022";
-	public static final int INVALID_ID = -1;
+	public static final Long INVALID_ID = -1L;
 
 	@BeforeEach
 	private void setUp() {
-		pricesAction = mock(GetPricesAction.class);
+		pricesAction = mock(GetPriceAction.class);
 		pricesHandler = new PricesHandler(pricesAction);
 	}
 
@@ -86,8 +86,8 @@ class PricesHandlerTest {
 
 
 	private void givenAValidData() {
-		brandId = 1;
-		productId = 2;
+		brandId = 1L;
+		productId = 2L;
 		dateString = "2022-08-05-00.00.00";
 	}
 
@@ -95,7 +95,7 @@ class PricesHandlerTest {
 		GetPriceData actionData = new GetPriceData(brandId, productId, DateFormatter.toDate(dateString));
 		price = BigDecimal.TEN;
 		priceList = 3;
-		Price expectedPrice = new Price(brandId, productId, priceList, price);
+		GetPriceResponseData expectedPrice = new GetPriceResponseData(brandId, productId, priceList, price);
 		Mockito.when(pricesAction.getPrice(actionData)).thenReturn(expectedPrice);
 	}
 
@@ -103,11 +103,7 @@ class PricesHandlerTest {
 		response = pricesHandler.price(brandId, productId, dateString);
 	}
 
-	private void shouldResponseBadRequest() {
-		Assertions.assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-	}
-
-	private void shouldReturnAValidResponse(int brandId, int productId, BigDecimal price, int priceList, ResponseEntity<PriceResponse> response) {
+	private void shouldReturnAValidResponse(Long brandId, Long productId, BigDecimal price, int priceList, ResponseEntity<PriceResponse> response) {
 		Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
 		Assertions.assertEquals(brandId, response.getBody().getBrandId());
 		Assertions.assertEquals(productId, response.getBody().getProductId());

@@ -1,6 +1,7 @@
 package com.test.prices.core.infrastructure;
 
 import com.test.prices.core.domain.GetPriceData;
+import com.test.prices.core.domain.PricesRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,8 +15,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 class JPAPricesRepositoryImplTest {
+    public static final Long PRODUCT_ID = 35455L;
+    public static final Long BRAND_ID = 1L;
+
     @Autowired
-    private JPAPricesRepositoryImpl pricesRepository;
+    private PricesRepository pricesRepository;
+
     private GetPriceData priceData;
     private List<PriceItem> prices;
 
@@ -42,7 +47,7 @@ class JPAPricesRepositoryImplTest {
     }
 
     private void givenPriceData(Date date) {
-        priceData = new GetPriceData(1,35455, date);
+        priceData = new GetPriceData(BRAND_ID, PRODUCT_ID, date);
     }
 
     private void whenPriceData() {
