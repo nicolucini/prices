@@ -13,6 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.springframework.http.ResponseEntity;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -24,7 +25,7 @@ class PricesHandlerTest {
 	private PricesHandler pricesHandler;
 	@Mock private PricesAction pricesAction;
 
-	private PriceResponse response;
+	private ResponseEntity<PriceResponse> response;
 	private int brandId;
 	private int productId;
 	private String dateString;
@@ -36,7 +37,7 @@ class PricesHandlerTest {
 	@BeforeEach
 	private void setUp() {
 		pricesAction = mock(PricesAction.class);
-		pricesHandler = new PricesHandler(pricesAction);
+		pricesHandler = new PricesHandler();
 	}
 
 	@Test
@@ -97,10 +98,10 @@ class PricesHandlerTest {
 		response = pricesHandler.price(brandId, productId, dateString);
 	}
 
-	private void shouldReturnAValidResponse(int brandId, int productId, BigDecimal price, int priceList, PriceResponse response) {
-		Assertions.assertEquals(brandId, response.getBrandId());
-		Assertions.assertEquals(productId, response.getProductId());
-		Assertions.assertEquals(priceList, response.getPriceList());
-		Assertions.assertEquals(price, response.getPrice());
+	private void shouldReturnAValidResponse(int brandId, int productId, BigDecimal price, int priceList, ResponseEntity<PriceResponse> response) {
+		Assertions.assertEquals(brandId, response.getBody().getBrandId());
+		Assertions.assertEquals(productId, response.getBody().getProductId());
+		Assertions.assertEquals(priceList, response.getBody().getPriceList());
+		Assertions.assertEquals(price, response.getBody().getPrice());
 	}
 }

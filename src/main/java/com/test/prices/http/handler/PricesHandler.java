@@ -8,31 +8,41 @@ import com.test.prices.http.exception.InvalidDateException;
 import com.test.prices.http.exception.InvalidProductException;
 import com.test.prices.http.response.PriceResponse;
 import com.test.prices.utils.DateFormatter;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.text.ParseException;
 
 @RestController
 public class PricesHandler {
 	private PricesAction pricesAction;
 
-	public PricesHandler(PricesAction pricesAction) {
-		this.pricesAction = pricesAction;
+	public PricesHandler() {
+		this.pricesAction = new PricesAction();
 	}
 
-	@GetMapping("/price")
-	public PriceResponse price(@RequestParam(value = "brandId") int brandId,
-							   @RequestParam(value = "productId") int productId,
-							   @RequestParam(value = "date") String date) throws Throwable {
+	@GetMapping("/brands/{brandId}/products/{productId}")
+	public ResponseEntity<PriceResponse> price(@PathVariable(value = "brandId") int brandId,
+										@PathVariable(value = "productId") int productId,
+										@RequestParam(value = "date") String date) throws Exception {
+
 		validateRequest(brandId, productId, date);
 		Price price = pricesAction.getPrice(new PriceActionData(brandId, productId, DateFormatter.toDate(date)));
-		return new PriceResponse(price.getBrandId(),price.getProductId(),price.getPriceList(), price.getPrice());
+		PriceResponse priceResponse = new PriceResponse(price.getBrandId(),price.getProductId(),price.getPriceList(), price.getPrice());
+		return ResponseEntity.status(HttpStatus.OK).body(priceResponse);
+
 	}
 
-	private void validateRequest(int brandId, int productId, String date) throws Throwable {
+	@ExceptionHandler({ InvalidDateException.class, InvalidBrandException.class, InvalidProductException.class})
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ResponseEntity<String> handleException(Exception exception) {
+		return ResponseEntity
+				.status(HttpStatus.BAD_REQUEST)
+				.body(exception.getMessage());
+	}
+
+	private void validateRequest(int brandId, int productId, String date) throws Exception {
 		try {
 			DateFormatter.toDate(date);
 		} catch (ParseException e){
