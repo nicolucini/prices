@@ -13,10 +13,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.math.BigDecimal;
-import java.text.ParseException;
 
 import static org.mockito.Mockito.mock;
 
@@ -58,6 +58,7 @@ class PricesHandlerTest {
 		Assertions.assertThrows(InvalidDateException.class,
 				this::whenGetPrice);
 
+		shouldResponseBadRequest();
 	}
 
 	@Test
@@ -67,6 +68,8 @@ class PricesHandlerTest {
 
 		Assertions.assertThrows(InvalidBrandException.class,
 				this::whenGetPrice);
+
+		shouldResponseBadRequest();
 	}
 
 	@Test
@@ -76,6 +79,8 @@ class PricesHandlerTest {
 
 		Assertions.assertThrows(InvalidProductException.class,
 				this::whenGetPrice);
+
+		shouldResponseBadRequest();
 	}
 
 
@@ -97,7 +102,12 @@ class PricesHandlerTest {
 		response = pricesHandler.price(brandId, productId, dateString);
 	}
 
+	private void shouldResponseBadRequest() {
+		Assertions.assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+	}
+
 	private void shouldReturnAValidResponse(int brandId, int productId, BigDecimal price, int priceList, ResponseEntity<PriceResponse> response) {
+		Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
 		Assertions.assertEquals(brandId, response.getBody().getBrandId());
 		Assertions.assertEquals(productId, response.getBody().getProductId());
 		Assertions.assertEquals(priceList, response.getBody().getPriceList());

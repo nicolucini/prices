@@ -1,7 +1,10 @@
 package com.test.prices.http.exception;
 
+import com.test.prices.utils.DateFormatter;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
+
+import java.util.zip.DataFormatException;
 
 @ResponseStatus(
         value = HttpStatus.BAD_REQUEST,
@@ -9,6 +12,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 )
 public class InvalidDateException extends Exception {
     public InvalidDateException(String date) {
-        super(String.format("Date %s is invalid. Date format must be yyyy-MM-dd", date));
+        super(String.format("Date %s is invalid. Date format must be %s", date, DateFormatter.DATE_PATTERN));
     }
 }

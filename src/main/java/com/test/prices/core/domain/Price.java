@@ -5,10 +5,10 @@ import java.math.BigDecimal;
 public class Price {
     private int brandId;
     private int productId;
-    private int priceList;
+    private long priceList;
     private BigDecimal price;
 
-    public Price(int brandId, int productId, int priceList, BigDecimal price) {
+    public Price(int brandId, int productId, long priceList, BigDecimal price) {
         this.brandId = brandId;
         this.productId = productId;
         this.priceList = priceList;
@@ -23,7 +23,7 @@ public class Price {
         return productId;
     }
 
-    public int getPriceList() {
+    public long getPriceList() {
         return priceList;
     }
 

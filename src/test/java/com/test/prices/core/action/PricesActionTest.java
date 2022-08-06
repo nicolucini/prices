@@ -2,7 +2,7 @@ package com.test.prices.core.action;
 
 import com.test.prices.core.domain.GetPriceData;
 import com.test.prices.core.domain.Price;
-import com.test.prices.core.domain.PricesRepository;
+import com.test.prices.core.infrastructure.JPAPricesRepositoryImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +18,7 @@ import static org.mockito.Mockito.mock;
 class PricesActionTest {
     private GetPricesAction pricesAction;
     @Mock
-    private PricesRepository pricesRepository;
+    private JPAPricesRepositoryImpl pricesRepository;
 
     private GetPriceData priceData;
     private Price actualPrice;
@@ -26,7 +26,7 @@ class PricesActionTest {
 
     @BeforeEach
     void setUp() {
-        pricesRepository = mock(PricesRepository.class);
+        pricesRepository = mock(JPAPricesRepositoryImpl.class);
         pricesAction = new GetPricesAction(pricesRepository);
     }
 
@@ -46,7 +46,7 @@ class PricesActionTest {
 
     private void givenAPriceRepository() throws Throwable {
         expectedPrice = new Price(1,1,1, BigDecimal.TEN);
-        Mockito.when(pricesRepository.getPrice(priceData)).thenReturn(expectedPrice);
+//        Mockito.when(pricesRepository.getPrice(priceData)).thenReturn(expectedPrice);
     }
 
     private void whenGetPrice() throws Throwable {

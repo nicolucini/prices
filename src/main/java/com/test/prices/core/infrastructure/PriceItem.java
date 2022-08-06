@@ -1,5 +1,7 @@
 package com.test.prices.core.infrastructure;
 
+import com.test.prices.core.domain.Price;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -18,7 +20,7 @@ public class PriceItem {
     private Date endDate;
     @Id
     @Column(name = "price_list")
-    private int priceList;
+    private long priceList;
     @Column(name = "product_id")
     private int productId;
     @Column(name = "priority")
@@ -27,6 +29,9 @@ public class PriceItem {
     private BigDecimal price;
     @Column(name = "currency")
     private String currency;
+
+    public PriceItem() {
+    }
 
     public PriceItem(int brandId, Date startDate, Date endDate, int priceList, int productId, int priority, BigDecimal price, String currency) {
         this.brandId = brandId;
@@ -51,7 +56,7 @@ public class PriceItem {
         return endDate;
     }
 
-    public int getPriceList() {
+    public long getPriceList() {
         return priceList;
     }
 
@@ -69,5 +74,9 @@ public class PriceItem {
 
     public String getCurrency() {
         return currency;
+    }
+
+    public Price toPrice() {
+        return new Price(this.brandId, this.productId, this.priceList, this.price);
     }
 }

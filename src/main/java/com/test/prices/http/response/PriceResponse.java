@@ -1,6 +1,5 @@
 package com.test.prices.http.response;
 
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import java.math.BigDecimal;
@@ -9,10 +8,10 @@ import java.math.BigDecimal;
 public class PriceResponse {
     private int brandId;
     private int productId;
-    private int priceList;
+    private long priceList;
     private BigDecimal price;
 
-    public PriceResponse(int brandId, int productId, int priceList, BigDecimal price) {
+    public PriceResponse(int brandId, int productId, long priceList, BigDecimal price) {
         this.brandId = brandId;
         this.productId = productId;
         this.priceList = priceList;
@@ -27,7 +26,7 @@ public class PriceResponse {
         return productId;
     }
 
-    public int getPriceList() {
+    public long getPriceList() {
         return priceList;
     }
 
