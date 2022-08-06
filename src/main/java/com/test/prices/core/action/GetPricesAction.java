@@ -2,8 +2,8 @@ package com.test.prices.core.action;
 
 import com.test.prices.core.domain.Price;
 import com.test.prices.core.domain.GetPriceData;
+import com.test.prices.core.domain.PricesRepository;
 import com.test.prices.core.domain.exception.PriceNotFoundException;
-import com.test.prices.core.infrastructure.JPAPricesRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
 public class GetPricesAction {
 
     @Autowired
-    private final JPAPricesRepositoryImpl pricesRepository;
+    private final PricesRepository pricesRepository;
 
-    public GetPricesAction(JPAPricesRepositoryImpl pricesRepository) {
+    public GetPricesAction(PricesRepository pricesRepository) {
         this.pricesRepository = pricesRepository;
     }
 

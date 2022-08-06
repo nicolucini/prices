@@ -21,6 +21,10 @@ public class PricesHandler {
 	@Autowired
 	private GetPricesAction getPricesAction;
 
+	public PricesHandler(GetPricesAction getPricesAction) {
+		this.getPricesAction = getPricesAction;
+	}
+
 	@GetMapping("/brands/{brandId}/products/{productId}/price")
 	public ResponseEntity<PriceResponse> price(@PathVariable(value = "brandId") int brandId,
 										@PathVariable(value = "productId") int productId,
@@ -35,7 +39,7 @@ public class PricesHandler {
 
 	@ExceptionHandler({ InvalidDateException.class, InvalidBrandException.class, InvalidProductException.class, PriceNotFoundException.class})
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public ResponseEntity<String> handleException(Exception exception) {
+	public ResponseEntity<String> handleException(Throwable exception) {
 		return ResponseEntity
 				.status(HttpStatus.BAD_REQUEST)
 				.body(exception.getMessage());

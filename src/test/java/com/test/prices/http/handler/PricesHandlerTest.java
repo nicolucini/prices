@@ -13,6 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -20,9 +21,12 @@ import java.math.BigDecimal;
 
 import static org.mockito.Mockito.mock;
 
+@SpringBootTest
 class PricesHandlerTest {
 	private PricesHandler pricesHandler;
-	@Mock private GetPricesAction pricesAction;
+
+	@Mock
+	private GetPricesAction pricesAction;
 
 	private ResponseEntity<PriceResponse> response;
 	private int brandId;
@@ -36,7 +40,7 @@ class PricesHandlerTest {
 	@BeforeEach
 	private void setUp() {
 		pricesAction = mock(GetPricesAction.class);
-		pricesHandler = new PricesHandler();
+		pricesHandler = new PricesHandler(pricesAction);
 	}
 
 	@Test

@@ -2,6 +2,7 @@ package com.test.prices.core.action;
 
 import com.test.prices.core.domain.GetPriceData;
 import com.test.prices.core.domain.Price;
+import com.test.prices.core.domain.PricesRepository;
 import com.test.prices.core.domain.exception.PriceNotFoundException;
 import com.test.prices.core.infrastructure.JPAPricesRepositoryImpl;
 import com.test.prices.core.infrastructure.PriceItem;
@@ -23,7 +24,7 @@ import static org.mockito.Mockito.mock;
 class PricesActionTest {
     private GetPricesAction pricesAction;
     @Mock
-    private JPAPricesRepositoryImpl pricesRepository;
+    private PricesRepository pricesRepository;
 
     private GetPriceData priceData;
     private Price actualPrice;
