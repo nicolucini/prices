@@ -23,6 +23,10 @@ import static org.mockito.Mockito.mock;
 
 @SpringBootTest
 class PricesHandlerTest {
+	public static final long BRAND_ID = 1L;
+	public static final long PRODUCT_ID = 2L;
+	public static final String DATE_STRING = "2022-08-05-00.00.00";
+	public static final int PRICE_LIST = 3;
 	private PricesHandler pricesHandler;
 
 	@Mock
@@ -86,15 +90,15 @@ class PricesHandlerTest {
 
 
 	private void givenAValidData() {
-		brandId = 1L;
-		productId = 2L;
-		dateString = "2022-08-05-00.00.00";
+		brandId = BRAND_ID;
+		productId = PRODUCT_ID;
+		dateString = DATE_STRING;
 	}
 
 	private void givenAExpectedPrice() throws Throwable {
 		GetPriceData actionData = new GetPriceData(brandId, productId, DateFormatter.toDate(dateString));
 		price = BigDecimal.TEN;
-		priceList = 3;
+		priceList = PRICE_LIST;
 		GetPriceResponseData expectedPrice = new GetPriceResponseData(brandId, productId, priceList, price);
 		Mockito.when(pricesAction.getPrice(actionData)).thenReturn(expectedPrice);
 	}

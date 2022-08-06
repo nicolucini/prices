@@ -2,6 +2,7 @@ package com.test.prices.core.infrastructure;
 
 import com.test.prices.core.domain.GetPriceData;
 import com.test.prices.core.domain.PricesRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,6 +18,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class JPAPricesRepositoryImplTest {
     public static final Long PRODUCT_ID = 35455L;
     public static final Long BRAND_ID = 1L;
+    public static final double PRICE_1 = 25.45;
+    public static final double PRICE_2 = 35.50;
+    public static final int PRICE_LIST_2 = 2;
+    public static final int PRICE_LIST_1 = 1;
 
     @Autowired
     private PricesRepository pricesRepository;
@@ -57,24 +62,24 @@ class JPAPricesRepositoryImplTest {
     private void shouldReturnTwoPrices() {
         assertEquals(2, prices.size());
 
-        assertEquals(BigDecimal.valueOf(25.45).doubleValue(), prices.get(0).getPrice().doubleValue());
-        assertEquals(1, prices.get(0).getBrandId());
-        assertEquals(35455, prices.get(0).getProductId());
-        assertEquals(2, prices.get(0).getPriceList());
+        assertEquals(BigDecimal.valueOf(PRICE_1).doubleValue(), prices.get(0).getPrice().doubleValue());
+        Assertions.assertEquals(BRAND_ID, prices.get(0).getBrandId());
+        Assertions.assertEquals(PRODUCT_ID, prices.get(0).getProductId());
+        assertEquals(PRICE_LIST_2, prices.get(0).getPriceList());
 
-        assertEquals(BigDecimal.valueOf(35.50).doubleValue(), prices.get(1).getPrice().doubleValue());
-        assertEquals(1, prices.get(1).getBrandId());
-        assertEquals(35455, prices.get(1).getProductId());
-        assertEquals(1, prices.get(1).getPriceList());
+        assertEquals(BigDecimal.valueOf(PRICE_2).doubleValue(), prices.get(1).getPrice().doubleValue());
+        assertEquals(BRAND_ID, prices.get(1).getBrandId());
+        assertEquals(PRODUCT_ID, prices.get(1).getProductId());
+        assertEquals(PRICE_LIST_1, prices.get(1).getPriceList());
     }
 
     private void shouldReturnOnePrice() {
         assertEquals(1, prices.size());
 
-        assertEquals(BigDecimal.valueOf(35.50).doubleValue(), prices.get(0).getPrice().doubleValue());
-        assertEquals(1, prices.get(0).getBrandId());
-        assertEquals(35455, prices.get(0).getProductId());
-        assertEquals(1, prices.get(0).getPriceList());
+        assertEquals(BigDecimal.valueOf(PRICE_2).doubleValue(), prices.get(0).getPrice().doubleValue());
+        assertEquals(BRAND_ID, prices.get(0).getBrandId());
+        assertEquals(PRODUCT_ID, prices.get(0).getProductId());
+        assertEquals(PRICE_LIST_1, prices.get(0).getPriceList());
     }
 
 
