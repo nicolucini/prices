@@ -12,7 +12,7 @@ public class GetPricesAction {
         this.pricesRepository = pricesRepository;
     }
 
-    public Price getPrice(GetPriceData priceData) {
+    public Price getPrice(GetPriceData priceData) throws Throwable {
         return pricesRepository.getPrice(priceData);
     }
 }

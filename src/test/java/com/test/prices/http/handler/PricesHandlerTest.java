@@ -82,10 +82,10 @@ class PricesHandlerTest {
 	private void givenAValidData() {
 		brandId = 1;
 		productId = 2;
-		dateString = "2022-08-05";
+		dateString = "2022-08-05-00.00.00";
 	}
 
-	private void givenAExpectedPrice() throws ParseException {
+	private void givenAExpectedPrice() throws Throwable {
 		GetPriceData actionData = new GetPriceData(brandId, productId, DateFormatter.toDate(dateString));
 		price = BigDecimal.TEN;
 		priceList = 3;

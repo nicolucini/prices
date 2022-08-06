@@ -31,7 +31,7 @@ class PricesActionTest {
     }
 
     @Test
-    public void givenAActionDataWhenGetPriceShouldReturnAPrice() {
+    public void givenAActionDataWhenGetPriceShouldReturnAPrice() throws Throwable {
         givenAValidPriceData();
         givenAPriceRepository();
 
@@ -44,12 +44,12 @@ class PricesActionTest {
         priceData = new GetPriceData(1,2, Date.valueOf(LocalDate.of(2022,8,5)));
     }
 
-    private void givenAPriceRepository() {
+    private void givenAPriceRepository() throws Throwable {
         expectedPrice = new Price(1,1,1, BigDecimal.TEN);
         Mockito.when(pricesRepository.getPrice(priceData)).thenReturn(expectedPrice);
     }
 
-    private void whenGetPrice() {
+    private void whenGetPrice() throws Throwable {
         actualPrice = pricesAction.getPrice(priceData);
     }
 

@@ -26,7 +26,7 @@ public class PricesHandler {
 	@GetMapping("/brands/{brandId}/products/{productId}")
 	public ResponseEntity<PriceResponse> price(@PathVariable(value = "brandId") int brandId,
 										@PathVariable(value = "productId") int productId,
-										@RequestParam(value = "date") String date) throws Exception {
+										@RequestParam(value = "date") String date) throws Throwable {
 
 		validateRequest(brandId, productId, date);
 		Price price = getPricesAction.getPrice(new GetPriceData(brandId, productId, DateFormatter.toDate(date)));
