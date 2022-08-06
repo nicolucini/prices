@@ -3,12 +3,12 @@ package com.test.prices.core.domain;
 import java.util.Date;
 import java.util.Objects;
 
-public class PriceActionData {
+public class GetPriceData {
     private int brandId;
     private int productId;
     private Date date;
 
-    public PriceActionData(int brandId, int productId, Date date) {
+    public GetPriceData(int brandId, int productId, Date date) {
         this.brandId = brandId;
         this.productId = productId;
         this.date = date;
@@ -30,7 +30,7 @@ public class PriceActionData {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PriceActionData that = (PriceActionData) o;
+        GetPriceData that = (GetPriceData) o;
         return brandId == that.brandId && productId == that.productId && Objects.equals(date, that.date);
     }
 

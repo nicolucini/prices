@@ -1,8 +1,9 @@
 package com.test.prices.http.handler;
 
-import com.test.prices.core.action.PricesAction;
+import com.test.prices.core.action.GetPricesAction;
 import com.test.prices.core.domain.Price;
-import com.test.prices.core.domain.PriceActionData;
+import com.test.prices.core.domain.GetPriceData;
+import com.test.prices.core.infrastructure.H2PricesRepositoryImpl;
 import com.test.prices.http.exception.InvalidBrandException;
 import com.test.prices.http.exception.InvalidDateException;
 import com.test.prices.http.exception.InvalidProductException;
@@ -16,10 +17,10 @@ import java.text.ParseException;
 
 @RestController
 public class PricesHandler {
-	private PricesAction pricesAction;
+	private GetPricesAction getPricesAction;
 
 	public PricesHandler() {
-		this.pricesAction = new PricesAction();
+		this.getPricesAction = new GetPricesAction(new H2PricesRepositoryImpl());
 	}
 
 	@GetMapping("/brands/{brandId}/products/{productId}")
@@ -28,7 +29,7 @@ public class PricesHandler {
 										@RequestParam(value = "date") String date) throws Exception {
 
 		validateRequest(brandId, productId, date);
-		Price price = pricesAction.getPrice(new PriceActionData(brandId, productId, DateFormatter.toDate(date)));
+		Price price = getPricesAction.getPrice(new GetPriceData(brandId, productId, DateFormatter.toDate(date)));
 		PriceResponse priceResponse = new PriceResponse(price.getBrandId(),price.getProductId(),price.getPriceList(), price.getPrice());
 		return ResponseEntity.status(HttpStatus.OK).body(priceResponse);
 

@@ -1,8 +1,8 @@
 package com.test.prices.http.handler;
 
-import com.test.prices.core.action.PricesAction;
+import com.test.prices.core.action.GetPricesAction;
 import com.test.prices.core.domain.Price;
-import com.test.prices.core.domain.PriceActionData;
+import com.test.prices.core.domain.GetPriceData;
 import com.test.prices.http.exception.InvalidBrandException;
 import com.test.prices.http.exception.InvalidDateException;
 import com.test.prices.http.exception.InvalidProductException;
@@ -20,10 +20,9 @@ import java.text.ParseException;
 
 import static org.mockito.Mockito.mock;
 
-
 class PricesHandlerTest {
 	private PricesHandler pricesHandler;
-	@Mock private PricesAction pricesAction;
+	@Mock private GetPricesAction pricesAction;
 
 	private ResponseEntity<PriceResponse> response;
 	private int brandId;
@@ -36,7 +35,7 @@ class PricesHandlerTest {
 
 	@BeforeEach
 	private void setUp() {
-		pricesAction = mock(PricesAction.class);
+		pricesAction = mock(GetPricesAction.class);
 		pricesHandler = new PricesHandler();
 	}
 
@@ -87,7 +86,7 @@ class PricesHandlerTest {
 	}
 
 	private void givenAExpectedPrice() throws ParseException {
-		PriceActionData actionData = new PriceActionData(brandId, productId, DateFormatter.toDate(dateString));
+		GetPriceData actionData = new GetPriceData(brandId, productId, DateFormatter.toDate(dateString));
 		price = BigDecimal.TEN;
 		priceList = 3;
 		Price expectedPrice = new Price(brandId, productId, priceList, price);
