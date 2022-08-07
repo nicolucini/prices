@@ -1,5 +1,6 @@
 package com.test.prices.utils;
 
+import com.test.prices.core.domain.exception.InvalidDateException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -18,6 +19,6 @@ class DateFormatterTest {
 
     @Test
     public void givenAInvalidDateWhenToDateShouldReturnAInvalidDateException() {
-        Assertions.assertThrows(ParseException.class, () -> DateFormatter.toDate(INVALID_DATE));
+        Assertions.assertThrows(InvalidDateException.class, () -> DateFormatter.toDate(INVALID_DATE));
     }
 }
