@@ -1,6 +1,7 @@
 package com.test.prices.http.response;
 
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.test.prices.utils.DateFormatter;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -10,11 +11,11 @@ public class PriceResponse {
     private final Long brandId;
     private final Long productId;
     private final Long priceList;
-    private final Date startDate;
-    private final Date endDate;
+    private final String startDate;
+    private final String endDate;
     private final BigDecimal price;
 
-    public PriceResponse(Long brandId, Long productId, Long priceList, Date startDate, Date endDate, BigDecimal price) {
+    public PriceResponse(Long brandId, Long productId, Long priceList, String startDate, String endDate, BigDecimal price) {
         this.brandId = brandId;
         this.productId = productId;
         this.priceList = priceList;
@@ -35,11 +36,11 @@ public class PriceResponse {
         return priceList;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 

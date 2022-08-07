@@ -18,4 +18,9 @@ public class DateFormatter {
             throw new InvalidDateException(date);
         }
     }
+
+    public static String fromDate(Date date) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_PATTERN);
+        return simpleDateFormat.format(date);
+    }
 }
