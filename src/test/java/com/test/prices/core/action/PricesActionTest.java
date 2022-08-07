@@ -1,7 +1,7 @@
 package com.test.prices.core.action;
 
 import com.test.prices.core.domain.GetPriceData;
-import com.test.prices.core.domain.GetPriceResponseData;
+import com.test.prices.core.domain.Price;
 import com.test.prices.core.domain.PricesRepository;
 import com.test.prices.core.domain.exception.PriceNotFoundException;
 import com.test.prices.core.infrastructure.PriceItem;
@@ -30,7 +30,7 @@ class PricesActionTest {
     private PricesRepository pricesRepository;
 
     private GetPriceData priceData;
-    private GetPriceResponseData actualPrice;
+    private Price actualPrice;
     private PriceItem expectedPrice;
 
     @BeforeEach

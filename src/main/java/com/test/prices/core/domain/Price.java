@@ -1,40 +1,19 @@
-package com.test.prices.core.infrastructure;
+package com.test.prices.core.domain;
 
-import com.test.prices.core.domain.Price;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.Date;
 
-@Entity
-@Table(name = "prices")
-public class PriceItem {
-    @Column(name = "brand_id")
+public class Price {
     private Long brandId;
-    @Column(name = "start_date")
     private Date startDate;
-    @Column(name = "end_date")
     private Date endDate;
-    @Id
-    @Column(name = "price_list")
     private Long priceList;
-    @Column(name = "product_id")
     private Long productId;
-    @Column(name = "priority")
     private int priority;
-    @Column(name = "price")
     private BigDecimal price;
-    @Column(name = "currency")
     private String currency;
 
-    //CONSTRUCTOR CREADO PARA JPA
-    public PriceItem() {
-    }
-
-    public PriceItem(Long brandId, Date startDate, Date endDate, Long priceList, Long productId, int priority, BigDecimal price, String currency) {
+    public Price(Long brandId, Date startDate, Date endDate, Long priceList, Long productId, int priority, BigDecimal price, String currency) {
         this.brandId = brandId;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -77,7 +56,4 @@ public class PriceItem {
         return currency;
     }
 
-    public Price toPriceResponseData() {
-        return new Price(this.brandId, this.startDate, this.endDate, this.priceList, this.productId, this.priority, this.price, this.currency);
-    }
 }

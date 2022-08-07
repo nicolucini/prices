@@ -1,7 +1,7 @@
 package com.test.prices.core.action;
 
-import com.test.prices.core.domain.GetPriceResponseData;
 import com.test.prices.core.domain.GetPriceData;
+import com.test.prices.core.domain.Price;
 import com.test.prices.core.domain.PricesRepository;
 import com.test.prices.core.domain.exception.PriceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ public class GetPriceAction {
         this.pricesRepository = pricesRepository;
     }
 
-    public GetPriceResponseData getPrice(GetPriceData priceData) throws Exception {
+    public Price getPrice(GetPriceData priceData) throws Exception {
         return pricesRepository.findByDate(priceData.getBrandId(), priceData.getProductId(), priceData.getDate())
                 .orElseThrow(PriceNotFoundException::new)
                 .toPriceResponseData();
