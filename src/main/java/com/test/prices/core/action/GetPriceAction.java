@@ -19,10 +19,7 @@ public class GetPriceAction {
 
     public GetPriceResponseData getPrice(GetPriceData priceData) throws Throwable {
         return pricesRepository.findByDate(priceData.getBrandId(),
-                        priceData.getProductId(),
-                        priceData.getDate()).stream().
-                        findFirst().
-                        orElseThrow(PriceNotFoundException::new)
-                .toPrice();
+                priceData.getProductId(),
+                priceData.getDate());
     }
 }

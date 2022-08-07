@@ -7,7 +7,8 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Date;
 import java.util.List;
 
-public interface JPAPricesRepositoryImpl extends CrudRepository<PriceItem, Long>, PricesRepository {
+public interface JPAPricesRepository extends CrudRepository<PriceItem, Long> {
     @Query("SELECT p FROM PriceItem p WHERE p.brandId = ?1 and p.productId = ?2 and p.startDate <= ?3 and p.endDate >= ?3 order by p.priority desc")
     List<PriceItem> findByDate(Long brandId, Long productId, Date date);
+
 }

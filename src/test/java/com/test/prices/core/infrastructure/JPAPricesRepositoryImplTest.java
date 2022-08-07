@@ -1,7 +1,6 @@
 package com.test.prices.core.infrastructure;
 
 import com.test.prices.core.domain.GetPriceData;
-import com.test.prices.core.domain.PricesRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,7 @@ class JPAPricesRepositoryImplTest {
     public static final int PRICE_LIST_1 = 1;
 
     @Autowired
-    private PricesRepository pricesRepository;
+    private JPAPricesRepository jpaPricesRepository;
 
     private GetPriceData priceData;
     private List<PriceItem> prices;
@@ -35,7 +34,7 @@ class JPAPricesRepositoryImplTest {
         calendar.set(2020, Calendar.JUNE, 14, 16, 0, 0);
         givenPriceData(calendar.getTime());
 
-        whenPriceData();
+        whenFindByDate();
 
         shouldReturnTwoPrices();
     }
@@ -46,7 +45,7 @@ class JPAPricesRepositoryImplTest {
         calendar.set(2020, Calendar.JUNE, 14, 10, 0, 0);
         givenPriceData(calendar.getTime());
 
-        whenPriceData();
+        whenFindByDate();
 
         shouldReturnOnePrice();
     }
@@ -55,8 +54,8 @@ class JPAPricesRepositoryImplTest {
         priceData = new GetPriceData(BRAND_ID, PRODUCT_ID, date);
     }
 
-    private void whenPriceData() {
-        prices = pricesRepository.findByDate(priceData.getBrandId(), priceData.getProductId(), priceData.getDate());
+    private void whenFindByDate() {
+        prices = jpaPricesRepository.findByDate(priceData.getBrandId(), priceData.getProductId(), priceData.getDate());
     }
 
     private void shouldReturnTwoPrices() {
