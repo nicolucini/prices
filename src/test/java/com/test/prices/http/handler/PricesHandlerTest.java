@@ -60,7 +60,7 @@ class PricesHandlerTest {
 
 		whenGetPrice();
 
-		shouldReturnAValidResponse(brandId, productId, price, priceList, response);
+		shouldReturnAValidResponse();
 
 	}
 
@@ -115,11 +115,13 @@ class PricesHandlerTest {
 		response = pricesHandler.price(brandId, productId, dateString);
 	}
 
-	private void shouldReturnAValidResponse(Long brandId, Long productId, BigDecimal price, Long priceList, ResponseEntity<PriceResponse> response) {
+	private void shouldReturnAValidResponse() {
 		Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
 		Assertions.assertEquals(brandId, response.getBody().getBrandId());
 		Assertions.assertEquals(productId, response.getBody().getProductId());
 		Assertions.assertEquals(priceList, response.getBody().getPriceList());
 		Assertions.assertEquals(price, response.getBody().getPrice());
+		Assertions.assertEquals(startDate, response.getBody().getStartDate());
+		Assertions.assertEquals(endDate, response.getBody().getEndDate());
 	}
 }

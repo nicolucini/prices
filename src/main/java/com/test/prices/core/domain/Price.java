@@ -4,14 +4,14 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class Price {
-    private Long brandId;
-    private Date startDate;
-    private Date endDate;
-    private Long priceList;
-    private Long productId;
-    private int priority;
-    private BigDecimal price;
-    private String currency;
+    private final Long brandId;
+    private final Date startDate;
+    private final Date endDate;
+    private final Long priceList;
+    private final Long productId;
+    private final int priority;
+    private final BigDecimal price;
+    private final String currency;
 
     public Price(Long brandId, Date startDate, Date endDate, Long priceList, Long productId, int priority, BigDecimal price, String currency) {
         this.brandId = brandId;

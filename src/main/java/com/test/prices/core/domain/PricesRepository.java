@@ -1,6 +1,5 @@
 package com.test.prices.core.domain;
 
-import com.test.prices.core.domain.exception.PriceNotFoundException;
 import com.test.prices.core.infrastructure.PriceItem;
 
 import java.util.Date;

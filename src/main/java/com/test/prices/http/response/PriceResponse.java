@@ -7,12 +7,12 @@ import java.util.Date;
 
 @JsonNaming()
 public class PriceResponse {
-    private Long brandId;
-    private Long productId;
-    private Long priceList;
-    private Date startDate;
-    private Date endDate;
-    private BigDecimal price;
+    private final Long brandId;
+    private final Long productId;
+    private final Long priceList;
+    private final Date startDate;
+    private final Date endDate;
+    private final BigDecimal price;
 
     public PriceResponse(Long brandId, Long productId, Long priceList, Date startDate, Date endDate, BigDecimal price) {
         this.brandId = brandId;

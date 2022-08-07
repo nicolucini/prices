@@ -4,9 +4,9 @@ import java.util.Date;
 import java.util.Objects;
 
 public class GetPriceData {
-    private Long brandId;
-    private Long productId;
-    private Date date;
+    private final Long brandId;
+    private final Long productId;
+    private final Date date;
 
     public GetPriceData(Long brandId, Long productId, Date date) {
         this.brandId = brandId;
