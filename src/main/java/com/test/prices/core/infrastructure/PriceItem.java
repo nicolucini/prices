@@ -76,7 +76,7 @@ public class PriceItem {
         return currency;
     }
 
-    public GetPriceResponseData toPrice() {
+    public GetPriceResponseData toPriceResponseData() {
         return new GetPriceResponseData(this.brandId, this.productId, this.priceList, this.price);
     }
 }

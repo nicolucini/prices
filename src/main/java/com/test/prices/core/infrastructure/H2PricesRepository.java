@@ -1,27 +1,14 @@
 package com.test.prices.core.infrastructure;
 
-import com.test.prices.core.domain.GetPriceResponseData;
 import com.test.prices.core.domain.PricesRepository;
-import com.test.prices.core.domain.exception.PriceNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 
 import java.util.Date;
+import java.util.Optional;
 
-@Repository
-public class H2PricesRepository implements PricesRepository {
-    @Autowired
-    private JPAPricesRepository jpaPricesRepository;
+public interface H2PricesRepository extends CrudRepository<PriceItem, Long>, PricesRepository {
+    @Query(value = "SELECT * FROM prices p WHERE p.brand_id = ?1 and p.product_id = ?2 and p.start_date <= ?3 and p.end_date >= ?3 order by p.priority desc LIMIT 1", nativeQuery = true)
+    Optional<PriceItem> findByDate(Long brandId, Long productId, Date date) throws Exception;
 
-    public H2PricesRepository(JPAPricesRepository jpaPricesRepository) {
-        this.jpaPricesRepository = jpaPricesRepository;
-    }
-
-    @Override
-    public GetPriceResponseData findByDate(Long brandId, Long productId, Date date) throws PriceNotFoundException {
-        return jpaPricesRepository.findByDate(brandId, productId, date)
-                .stream().findFirst().
-                orElseThrow(PriceNotFoundException::new)
-                .toPrice();
-    }
 }
