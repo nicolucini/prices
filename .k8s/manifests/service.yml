@@ -2,7 +2,7 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: prices-service
+  name: prices
   namespace: default
   labels:
     app: prices
@@ -10,7 +10,9 @@ spec:
   selector:
     app: prices
   ports:
-    - name: http
-      port: 80
-      targetPort: http
+    - name: tcp
+      port: 8080
+      targetPort: 8080
   type: LoadBalancer
+  externalIPs:
+    - 192.168.100.200
