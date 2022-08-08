@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prices
+  labels:
+    app: prices
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: prices
+  template:
+    metadata:
+      labels:
+        app: prices
+    spec:
+      containers:
+      - name: prices
+        image: nicolucini/prices
+        ports:
+        - name: http
+          containerPort: 8080
+        imagePullPolicy: Never
