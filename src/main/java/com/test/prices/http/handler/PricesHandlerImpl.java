@@ -1,6 +1,6 @@
 package com.test.prices.http.handler;
 
-import com.test.prices.core.action.GetPriceAction;
+import com.test.prices.core.action.PricesAction;
 import com.test.prices.core.domain.GetPriceData;
 import com.test.prices.core.domain.Price;
 import com.test.prices.core.domain.exception.*;
@@ -12,13 +12,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class GetPricesHandler {
-    @Autowired
-    private final GetPriceAction getPricesAction;
+public class PricesHandlerImpl implements PricesHandler {
 
-    public GetPricesHandler(GetPriceAction getPricesAction) {
-        this.getPricesAction = getPricesAction;
-    }
+    @Autowired
+    private PricesAction priceAction;
 
     @GetMapping("/brands/{brandId}/products/{productId}/price")
     public ResponseEntity<PriceResponse> price(@PathVariable(value = "brandId") Long brandId,
@@ -26,7 +23,7 @@ public class GetPricesHandler {
                                                @RequestParam(value = "date") String date) throws Exception {
 
         validateRequest(brandId, productId);
-        Price price = getPricesAction.getPrice(new GetPriceData(brandId, productId, DateFormatter.toDate(date)));
+        Price price = priceAction.getPrice(new GetPriceData(brandId, productId, DateFormatter.toDate(date)));
         PriceResponse priceResponse = new PriceResponse(price.getBrandId(),
                 price.getProductId(),
                 price.getPriceList(),

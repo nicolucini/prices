@@ -1,6 +1,6 @@
 package com.test.prices.http.handler;
 
-import com.test.prices.core.action.GetPriceAction;
+import com.test.prices.core.action.PricesAction;
 import com.test.prices.core.domain.GetPriceData;
 import com.test.prices.core.domain.Price;
 import com.test.prices.core.domain.exception.InvalidBrandException;
@@ -9,10 +9,9 @@ import com.test.prices.core.domain.exception.InvalidProductException;
 import com.test.prices.http.response.PriceResponse;
 import com.test.prices.utils.DateFormatter;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +20,7 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 class PricesHandlerTest {
@@ -31,10 +30,11 @@ class PricesHandlerTest {
 	public static final Long PRICE_LIST = 3L;
 	private static final int PRIORITY = 1;
 	private static final String CURRENCY = "EUR";
-	private GetPricesHandler pricesHandler;
 
 	@Mock
-	private GetPriceAction pricesAction;
+	private PricesAction pricesAction;
+	@InjectMocks
+	private PricesHandler pricesHandler = new PricesHandlerImpl();
 
 	private ResponseEntity<PriceResponse> response;
 	private Long brandId;
@@ -47,11 +47,6 @@ class PricesHandlerTest {
 	public static final String INVALID_DATE = "05-08-2022";
 	public static final Long INVALID_ID = -1L;
 
-	@BeforeEach
-	private void setUp() {
-		pricesAction = mock(GetPriceAction.class);
-		pricesHandler = new GetPricesHandler(pricesAction);
-	}
 
 	@Test
 	void givenABrandIdAndProductIdAndDateWhenGetPriceShouldReturnAValidResponse() throws Throwable {
@@ -108,7 +103,7 @@ class PricesHandlerTest {
 		startDate = Calendar.getInstance().getTime();
 		endDate = Calendar.getInstance().getTime();
 		Price expectedPrice = new Price(brandId, startDate, endDate, PRICE_LIST, productId, PRIORITY, price, CURRENCY);
-		Mockito.when(pricesAction.getPrice(actionData)).thenReturn(expectedPrice);
+		when(pricesAction.getPrice(actionData)).thenReturn(expectedPrice);
 	}
 
 	private void whenGetPrice() throws Throwable {

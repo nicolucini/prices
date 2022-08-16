@@ -8,14 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class GetPriceAction {
+public class PricesActionImpl implements PricesAction {
 
     @Autowired
-    private final PricesRepository pricesRepository;
-
-    public GetPriceAction(PricesRepository pricesRepository) {
-        this.pricesRepository = pricesRepository;
-    }
+    private PricesRepository pricesRepository;
 
     public Price getPrice(GetPriceData priceData) throws Exception {
         return pricesRepository.findByDate(priceData.getBrandId(), priceData.getProductId(), priceData.getDate())

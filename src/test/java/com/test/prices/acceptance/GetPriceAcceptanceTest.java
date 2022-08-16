@@ -1,16 +1,14 @@
 package com.test.prices.acceptance;
 
-import com.test.prices.core.action.GetPriceAction;
-import com.test.prices.core.domain.PricesRepository;
-import com.test.prices.http.handler.GetPricesHandler;
+import com.test.prices.http.handler.PricesHandler;
 import com.test.prices.http.response.PriceResponse;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 public class GetPriceAcceptanceTest {
@@ -20,16 +18,8 @@ public class GetPriceAcceptanceTest {
     private static final Long BRAND_ID = 1L;
 
     @Autowired
-    PricesRepository repository;
-    @Autowired
-    GetPriceAction action;
-    @Autowired
-    GetPricesHandler handler;
+    PricesHandler handler;
 
-    @BeforeEach
-    public void setUp() {
-        handler = new GetPricesHandler(action);
-    }
 
     /**
      *
@@ -41,11 +31,11 @@ public class GetPriceAcceptanceTest {
 
         ResponseEntity<PriceResponse> response = handler.price(BRAND_ID, PRODUCT_ID, dateString);
 
-        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-        Assertions.assertEquals(1, response.getBody().getPriceList());
-        Assertions.assertEquals(1, response.getBody().getBrandId());
-        Assertions.assertEquals(35455, response.getBody().getProductId());
-        Assertions.assertEquals(35.50, response.getBody().getPrice().doubleValue());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(1, response.getBody().getPriceList());
+        assertEquals(1, response.getBody().getBrandId());
+        assertEquals(35455, response.getBody().getProductId());
+        assertEquals(35.50, response.getBody().getPrice().doubleValue());
     }
 
     /**
@@ -57,11 +47,11 @@ public class GetPriceAcceptanceTest {
 
         ResponseEntity<PriceResponse> response = handler.price(BRAND_ID, PRODUCT_ID, dateString);
 
-        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-        Assertions.assertEquals(2, response.getBody().getPriceList());
-        Assertions.assertEquals(1, response.getBody().getBrandId());
-        Assertions.assertEquals(35455, response.getBody().getProductId());
-        Assertions.assertEquals(25.45, response.getBody().getPrice().doubleValue());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(2, response.getBody().getPriceList());
+        assertEquals(1, response.getBody().getBrandId());
+        assertEquals(35455, response.getBody().getProductId());
+        assertEquals(25.45, response.getBody().getPrice().doubleValue());
     }
 
     /**
@@ -74,11 +64,11 @@ public class GetPriceAcceptanceTest {
 
         ResponseEntity<PriceResponse> response = handler.price(BRAND_ID, PRODUCT_ID, dateString);
 
-        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-        Assertions.assertEquals(1, response.getBody().getPriceList());
-        Assertions.assertEquals(1, response.getBody().getBrandId());
-        Assertions.assertEquals(35455, response.getBody().getProductId());
-        Assertions.assertEquals(35.50, response.getBody().getPrice().doubleValue());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(1, response.getBody().getPriceList());
+        assertEquals(1, response.getBody().getBrandId());
+        assertEquals(35455, response.getBody().getProductId());
+        assertEquals(35.50, response.getBody().getPrice().doubleValue());
     }
 
     /**
@@ -90,11 +80,11 @@ public class GetPriceAcceptanceTest {
 
         ResponseEntity<PriceResponse> response = handler.price(BRAND_ID, PRODUCT_ID, dateString);
 
-        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-        Assertions.assertEquals(3, response.getBody().getPriceList());
-        Assertions.assertEquals(1, response.getBody().getBrandId());
-        Assertions.assertEquals(35455, response.getBody().getProductId());
-        Assertions.assertEquals(30.50, response.getBody().getPrice().doubleValue());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(3, response.getBody().getPriceList());
+        assertEquals(1, response.getBody().getBrandId());
+        assertEquals(35455, response.getBody().getProductId());
+        assertEquals(30.50, response.getBody().getPrice().doubleValue());
     }
 
     /**
@@ -106,11 +96,11 @@ public class GetPriceAcceptanceTest {
 
         ResponseEntity<PriceResponse> response = handler.price(BRAND_ID, PRODUCT_ID, dateString);
 
-        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-        Assertions.assertEquals(4, response.getBody().getPriceList());
-        Assertions.assertEquals(1, response.getBody().getBrandId());
-        Assertions.assertEquals(35455, response.getBody().getProductId());
-        Assertions.assertEquals(38.95, response.getBody().getPrice().doubleValue());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(4, response.getBody().getPriceList());
+        assertEquals(1, response.getBody().getBrandId());
+        assertEquals(35455, response.getBody().getProductId());
+        assertEquals(38.95, response.getBody().getPrice().doubleValue());
     }
 
 
